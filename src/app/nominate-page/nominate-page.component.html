@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h2>提名须知</h2>
+    <p class="lead">
+      以热爱祖国为荣，以危害祖国为耻
+      以服务人民为荣，以背离人民为耻
+      以崇尚科学为荣，以愚昧无知为耻
+      以辛勤劳动为荣，以好逸恶劳为耻
+      以团结互助为荣，以损人利己为耻
+      以诚实守信为荣，以见利忘义为耻
+      以遵纪守法为荣，以违法乱纪为耻
+      以艰苦奋斗为荣，以骄奢淫逸为耻</p>
+  </div>
+
+  <div class="row ">
+
+    <form class="form-horizontal">
+      <h4 class="text-center">被提名人信息</h4>
+      <div class="form-group">
+        <label class="col-xs-3 text-right control-label">姓名</label>
+        <div class="col-xs-8">
+          <input type="text" class="form-control" placeholder="姓名或团体名">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 text-right control-label">院系</label>
+        <div class="col-xs-8">
+          <select class="form-control">
+            <option> </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 text-right control-label">类型</label>
+        <div class="col-xs-5">
+          <select class="form-control" v-model="nomination.type.id">
+            <option v-for="item in nomineeTypes" :value="item.id">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="col-xs-3">
+          <select class="form-control" >
+            <option >个人</option>
+            <option >团体</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 text-right">简介</label>
+        <div class="col-xs-8">
+          <input type="text" class="form-control" placeholder="一句话概括，15字以内~" >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 text-right">故事</label>
+        <div class="col-xs-8">
+          <textarea class="form-control" rows="4" placeholder="你或者他、你们或者他们的故事，140字以内" ></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 text-right control-label">物件</label>
+        <div class="col-xs-8">
+          <textarea class="form-control" rows="2" placeholder="若为自己提名，请填写一件最想从复旦带走的东西" ></textarea>
+        </div>
+      </div>
+
+      <h4 class="text-center">提名人信息</h4>
+      <div class="form-group">
+        <label class="col-xs-3 text-right control-label">姓名</label>
+        <div class="col-xs-8">
+          <input type="text" class="form-control" placeholder="" required >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 text-right control-label">联系方式</label>
+        <div class="col-xs-8">
+          <input type="text" class="form-control" placeholder="推荐填写手机号">
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <button class="btn btn-info" >提交提名</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="modal mask">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>what is the fuck????? </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-primary">确认</button>
+          <button class="btn btn-sm btn-default">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
