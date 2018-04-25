@@ -1,0 +1,16 @@
+#banner{
+  height: 500px;
+  /*weight: auto;*/
+  background-image: url("../../assets/img/banner-1.png");
+  background-size: cover;
+  border: 2px solid darkgray;
+  color: #000;
+}
+
+.navbar {
+}
+
+strong {
+}
+
+

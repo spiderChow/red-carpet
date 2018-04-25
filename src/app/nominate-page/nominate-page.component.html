@@ -1,8 +1,7 @@
 <div class="container">
-  <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h2>提名须知</h2>
-    <p class="lead">
+  <div class="row d-flex justify-content-center">
+    <h2 class="col-12 text-center">提名须知</h2>
+    <p class="col-9 text-center">
       以热爱祖国为荣，以危害祖国为耻
       以服务人民为荣，以背离人民为耻
       以崇尚科学为荣，以愚昧无知为耻
@@ -13,82 +12,114 @@
       以艰苦奋斗为荣，以骄奢淫逸为耻</p>
   </div>
 
-  <div class="row ">
+  <hr>
+  <form (ngSubmit)="onStoreNominee()" [formGroup]="nomineeForm">
+    <div class="row d-flex justify-content-center">
+      <h4 class="col-12 text-center">被提名人信息</h4>
 
-    <form class="form-horizontal">
-      <h4 class="text-center">被提名人信息</h4>
-      <div class="form-group">
-        <label class="col-xs-3 text-right control-label">姓名</label>
-        <div class="col-xs-8">
-          <input type="text" class="form-control" placeholder="姓名或团体名">
+      <div class="w-100"></div>
+      <div class="col-8 form-group">
+          <div class="col-12 d-flex justify-content-center">
+            <img class="img-thumbnail" id="blah" src="{{url}}" alt="your image" [hidden]="url.length==0" />
+          </div>
+          <div class="col-12 input-group pl-0 pr-0 mt-1">
+            <div class="custom-file">
+              <label class="custom-file-label" for="fileupload" id="uploadLabel">{{ fileUploadlabel }}</label>
+              <input type="file" class="form-control-file custom-file-input" id="fileupload" (change)="onSelectFile($event)" formControlName="photo">
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text" id="remove" (click)="url= '';fileUploadlabel='上传文件';">Clear</span>
+            </div>
+          </div>
+      </div>
+
+      <div class="w-100"></div>
+
+      <div class="col-8 form-row form-group">
+        <div class="col-5 pl-0">
+          <label class="col-12 control-label">姓名</label>
+          <div class="col-12 pl-0">
+            <input type="text" class="form-control col-xs-8" placeholder="姓名或团体名"  formControlName="name">
+          </div>
+        </div>
+        <div class="col-5">
+          <label class="col-12 control-label">院系</label>
+          <div class="col-12">
+            <select class="form-control" formControlName="school">
+              <option *ngFor="let school of schools" [value]="school">{{ school }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-2 pr-0">
+          <label class="col-12 control-label">类型</label>
+          <div class="col-12 pr-0">
+            <select class="form-control"formControlName="type">
+              <option >个人</option>
+              <option >团体</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label class="col-xs-3 text-right control-label">院系</label>
-        <div class="col-xs-8">
-          <select class="form-control">
-            <option> </option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-3 text-right control-label">类型</label>
-        <div class="col-xs-5">
-          <select class="form-control" v-model="nomination.type.id">
-            <option v-for="item in nomineeTypes" :value="item.id">{{item.name}}</option>
-          </select>
-        </div>
-        <div class="col-xs-3">
-          <select class="form-control" >
-            <option >个人</option>
-            <option >团体</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
+
+
+      <div class="w-100"></div>
+      <div class="col-8 form-group">
         <label class="col-xs-3 text-right">简介</label>
         <div class="col-xs-8">
-          <input type="text" class="form-control" placeholder="一句话概括，15字以内~" >
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-3 text-right">故事</label>
-        <div class="col-xs-8">
-          <textarea class="form-control" rows="4" placeholder="你或者他、你们或者他们的故事，140字以内" ></textarea>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-xs-3 text-right control-label">物件</label>
-        <div class="col-xs-8">
-          <textarea class="form-control" rows="2" placeholder="若为自己提名，请填写一件最想从复旦带走的东西" ></textarea>
+          <input type="text" class="form-control" placeholder="一句话概括，15字以内~"  formControlName="introduction">
         </div>
       </div>
 
-      <h4 class="text-center">提名人信息</h4>
-      <div class="form-group">
+      <div class="w-100"></div>
+      <div class="col-8 form-group">
+        <label class="col-xs-3 text-right">故事</label>
+        <div class="col-xs-12">
+          <textarea class="form-control" rows="4" placeholder="你或者他、你们或者他们的故事，140字以内"  formControlName="story"></textarea>
+        </div>
+      </div>
+
+      <div class="w-100"></div>
+      <div class="col-8 form-group">
+        <label class="col-xs-3 text-right control-label">物件</label>
+        <div class="col-xs-12">
+          <textarea class="form-control" rows="2" placeholder="若为自己提名，请填写一件最想从复旦带走的东西" formControlName="remark" ></textarea>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="row d-flex justify-content-center">
+
+      <h4 class="col-12 text-center">提名人信息</h4>
+      <div class="w-100"></div>
+      <div class="col-3 form-group">
         <label class="col-xs-3 text-right control-label">姓名</label>
         <div class="col-xs-8">
-          <input type="text" class="form-control" placeholder="" required >
+          <input type="text" class="form-control" placeholder=""  formControlName="referee">
         </div>
       </div>
-      <div class="form-group">
-        <label class="col-xs-3 text-right control-label">联系方式</label>
+      <div class="col-5 form-group">
+        <label class="col-xs-3 text-right control-label" >联系方式</label>
         <div class="col-xs-8">
-          <input type="text" class="form-control" placeholder="推荐填写手机号">
+          <input type="text" class="form-control" placeholder="推荐填写手机号"  formControlName="refereeContactInfo">
         </div>
       </div>
-      <div class="form-group text-center">
-        <button class="btn btn-info" >提交提名</button>
-      </div>
-    </form>
-  </div>
 
 
+    </div>
+
+    <div class="form-group row d-flex justify-content-center">
+      <button class="col-4 btn btn-info" >提交提名</button>
+    </div>
+
+  </form>
   <div class="modal mask">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
-          <p>what is the fuck????? </p>
+          <p>what is the f </p>
         </div>
         <div class="modal-footer">
           <button class="btn btn-sm btn-primary">确认</button>

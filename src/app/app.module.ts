@@ -5,13 +5,19 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NominationComponent } from './home/nomination/nomination.component';
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './home/header/header.component';
 import { NominatePageComponent } from './nominate-page/nominate-page.component';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'nominate', component: NominatePageComponent }
+  { path: 'nominate', component: NominatePageComponent },
+  { path: 'nominate/:id', component: NominatePageComponent },
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 
@@ -20,12 +26,15 @@ const appRoutes: Routes = [
     AppComponent,
     NominationComponent,
     HomeComponent,
-    HeaderComponent,
-    NominatePageComponent
+    NominatePageComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
