@@ -1,50 +1,53 @@
-<div class="container-fluid">
+<div class="container-fluid mt-5" id="nominations-list">
 
-  <form class="" (ngSubmit)="onSubmit(cardForm)" #cardForm="ngForm">
-    <div class="container d-flex flex-wrap justify-content-between mt-3" id="list">
+  <form class="" (ngSubmit)="onVote(f)" #f="ngForm">
+    <div class="container d-flex flex-wrap justify-content-between mt-0" id="list">
 
 
-      <div class="row" formArrayName="votes">
-        <div class="col-md-4" *ngFor="let nominee of nominees;let i = index;">
+      <div class="row">
 
-          <div class="card mt-3">
+        <div class="col-md-4 card text-center " *ngFor="let nominee of nominees;let i = index;">
 
-            <img class="card-img-top"
-                 data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
-                 alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;"
-                 src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_162fd11c32c%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_162fd11c32c%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.7265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                 data-holder-rendered="true">
-            <div class="card-body">
+          <a class="card-body  view-card-body p-1" data-toggle="modal" data-target="#nomineeModal"
+             (click)="viewNominee(nominee)">
 
-              <h5 class="card-title">
-                {{ nominee.name }} |
-                {{ nominee.introduction }}</h5>
-              <p class="card-text block-with-text">{{ nominee.story }}</p>
+            <h3>{{ nominee.name }} <span> {{ nominee.introduction }}</span></h3>
+            <!--<h1>Helen Parker<span>design photography</span></h1>-->
+            <!--<h6 class="card-subtitle text-muted pb-1">{{ nominee.introduction }}</h6>-->
+            <!--<p class="card-text block-with-text text-center">{{ nominee.story }}</p>-->
 
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%"
-                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <div class="d-flex align-items-baseline mt-3">
-                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#nomineeModal"
-                        (click)="viewNominee(nominee)">查看
-                </button>
-                <button type="button" class="btn btn-light">修改</button>
-                <div class="form-group form-check ml-auto">
-                  <input type="checkbox" class="form-check-input" id="vote-check" ngModel name="{{ nominee.id }}">
-                  <label class="form-check-label" for="vote-check">投票</label>
-                </div>
+          </a>
+
+
+          <div class="card-body  p-1">
+
+            <div class="progress" style="height: 20px;" *ngIf="nominee.votesNumber>=0">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                   attr.aria-valuenow="{{ nominee.votesNumber *20 }}"
+                   aria-valuemin="0" aria-valuemax="100" [style.width]="nominee.votesNumber*20 +'%'" *ngIf="nominee.votesNumber>0"> {{ nominee.votesNumber }}</div>
+            </div>
+
+
+            <div class="row d-flex align-items-center justify-content-center">
+
+
+              <div class="custom-control custom-checkbox mb-3 container">
+                <input type="checkbox"  id="{{nominee.id}}" ngModel name="{{nominee.id}}">
+                <label for="{{nominee.id}}">为TA投票</label>
               </div>
             </div>
 
+
           </div>
+
+
         </div>
       </div>
 
 
     </div>
     <div class="row m-3 d-flex justify-content-center" id="button">
-      <button class="btn btn-info col-4"> 投票</button>
+      <button class="btn col-4"> 投票</button>
     </div>
   </form>
 
@@ -59,20 +62,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="nomineeModalLabel">详细信息</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div class="col-12 text-center ">
+          <img class="img-thumbnail" id="blah" [src]="imgSrc" alt="your image"/>
+        </div>
         <h2>{{ modalNominee.name}} </h2>
         <p>简介：{{ modalNominee.introduction}} </p>
-        <p>{{ modalNominee.story}} </p>
+        <p class="text-center">{{ modalNominee.story}} </p>
         <p>专业：{{ modalNominee.school.name}} </p>
+        <p>类型：{{ modalNominee.type.name}} </p>
         <p>Ta的票数：{{ modalNominee.votesNumber}} </p>
-        <p>会有图片</p>
-        <hr>
-        <p>提名人：{{ modalNominee.referee}} </p>
+        <p>remark：{{ modalNominee.remark}} </p>
 
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modifyNominee(modalNominee)">修改</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

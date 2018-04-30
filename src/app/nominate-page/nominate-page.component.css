@@ -8,3 +8,46 @@ img{
 
 }
 
+#submit-btn {
+  background-color: #87314e;
+  color: white;
+  border: 1px #870242 solid;
+}
+
+
+
+
+
+
+
+
+input, textarea, label, select {
+  background-color: transparent;
+  color: white;
+
+}
+
+/*for the file upload button*/
+#uploadLabel{
+  color: #fefefe;
+  border-color: white;
+  opacity: 0.8;
+}
+.input-group-text{
+  border-color: white;
+  opacity: 0.8;
+}
+
+/*for the placeholder */
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #fefefe;
+  opacity: 0.3;
+}
+input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder {
+  color: #111;
+  opacity: .5;
+  transition: all 0.3s ease;
+}
+
+
+

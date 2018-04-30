@@ -11,35 +11,57 @@
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-light bg-white ">
-    <a class="navbar-brand" href="#" ><strong>HongTan</strong></a>
+  <div class="collapse" id="navbarRule" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4>提名须知</h4>
+          <p class="text-muted">{{ rule }}</p>
 
-    <form class="form-inline " [formGroup]="searchForm" (ngSubmit)="onSearch()">
-      <input class="form-control col-8" type="search" placeholder="搜索" aria-label="Search" ngModel name="search" formControlName="searchContent">
-      <div class="input-group-append col-2">
-        <button class="btn btn-outline-info" type="submit" >搜索</button>
+        </div>
       </div>
-    </form>
-    <button class="btn btn-outline-info" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-      红毯晚会相关信息
-    </button>
+    </div>
+  </div>
+  <nav class="navbar ">
+    <a class="navbar-brand" href="#" ><strong>FD</strong><i class="iconfont">&#xe614;</i><strong>HongTan</strong></a>
+
+    <!--<form class="form-inline " [formGroup]="searchForm" (ngSubmit)="onSearch()">-->
+      <!--<input class="form-control col-8" type="search" placeholder="搜索" aria-label="Search" ngModel name="search" formControlName="searchContent">-->
+      <!--<div class="input-group-append col-2">-->
+        <!--<button class="btn" type="submit" >搜索</button>-->
+
+      <!--</div>-->
+    <!--</form>-->
+    <div class="d-flex justify-content-end">
+      <button class="btn mr-1" (click)="onLoadNominatePage()" id="nominate-button">我要提名</button>
+
+      <button class="btn mr-1" data-toggle="collapse"  data-target="#navbarRule" aria-controls="navbarRule" aria-expanded="false" aria-label="Toggle navigation">
+        提名须知
+      </button>
+      <button class="btn mr-1" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        红毯晚会相关信息
+      </button>
+
+      <button class="btn mr-1" (click)="login()">
+        登录
+      </button>
+    </div>
   </nav>
   <div class="row" id="banner"></div>
 
-  <div class="row card text-center bg-white">
-    <div class="card-header" id="rule-header">
-      提名须知
-    </div>
-    <div class="card-body">
-      <p class="text-center">{{ rule }}</p>
+  <!--<div class="row card text-center bg-white" id="rule-card">-->
+    <!--<div class="card-header" >-->
+      <!--提名须知-->
+    <!--</div>-->
+    <!--<div class="card-body">-->
+      <!--<p class="text-center">{{ rule }}</p>-->
 
-      <button class="btn btn-info col-2" (click)="onLoadNominatePage()">我要提名</button>
 
-    </div>
-    <div class="card-footer ">
-      楼下投票区
-    </div>
-  </div>
+    <!--</div>-->
+    <!--<div class="card-footer ">-->
+      <!--楼下投票区-->
+    <!--</div>-->
+  <!--</div>-->
 
   <app-nomination></app-nomination>
 </div>

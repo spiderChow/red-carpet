@@ -1,54 +1,165 @@
 
-#list{
+#list {
   overflow-y: auto;
   height: 500px;
 }
+
 /*.card-text{*/
-  /*height: 71px;*/
-  /*overflow-x: hidden;*/
-  /*text-overflow: ellipsis;*/
-  /*white-space: nowrap;*/
+/*height: 71px;*/
+/*overflow-x: hidden;*/
+/*text-overflow: ellipsis;*/
+/*white-space: nowrap;*/
 /*}*/
 
-/* styles for '...' */
-.block-with-text {
-  /* hide text if it more than N lines  */
-  overflow: hidden;
-  /* for set '...' in absolute position */
-  position: relative;
-  /* use this value to count block height */
-  line-height: 1.2em;
-  /* max-height = line-height (1.2) * lines max number (3) */
-  max-height: 3.6em;
+/*!* styles for '...' *!*/
+/*.block-with-text {*/
+  /*!* hide text if it more than N lines  *!*/
+  /*overflow: hidden;*/
+  /*!* for set '...' in absolute position *!*/
+  /*position: relative;*/
+  /*!* use this value to count block height *!*/
+  /*line-height: 1.2em;*/
+  /*!* max-height = line-height (1.2) * lines max number (3) *!*/
+  /*max-height: 3.6em;*/
 
-  /* fix problem when last visible word doesn't adjoin right side  */
-  text-align: justify;
-  /* place for '...' */
-  margin-right: -1em;
-  padding-right: 1em;
+  /*!* fix problem when last visible word doesn't adjoin right side  *!*/
+  /*text-align: justify;*/
+  /*!* place for '...' *!*/
+  /*margin-right: -1em;*/
+  /*padding-right: 1em;*/
+/*}*/
+
+/*!* create the ... *!*/
+/*.block-with-text:before {*/
+  /*!* points in the end *!*/
+  /*content: '...';*/
+  /*!* absolute position *!*/
+  /*position: absolute;*/
+  /*!* set position to right bottom corner of block *!*/
+  /*right: 0;*/
+  /*bottom: 0;*/
+/*}*/
+
+/*!* hide ... if we have text, which is less than or equal to max lines *!*/
+/*.block-with-text:after {*/
+  /*!* points in the end *!*/
+  /*content: '';*/
+  /*!* absolute position *!*/
+  /*position: absolute;*/
+  /*!* set position to right bottom corner of text *!*/
+  /*right: 0;*/
+  /*!* set width and height *!*/
+  /*width: 1em;*/
+  /*height: 1em;*/
+  /*margin-top: 0.2em;*/
+  /*!* bg color = bg color under block *!*/
+  /*!*background: white;*!*/
+  /*!*background-color: rgba(0,0,0,.2);*!*/
+
+/*}*/
+
+
+
+.view-card-body {
+  cursor: grab;
 }
-/* create the ... */
-.block-with-text:before {
-  /* points in the end */
-  content: '...';
-  /* absolute position */
+
+#nominations-list {
+  /*background-color: #205493;*/
+}
+
+
+
+/* for the checked box*/
+input {
   position: absolute;
-  /* set position to right bottom corner of block */
-  right: 0;
-  bottom: 0;
+  left: -9999px;
 }
-/* hide ... if we have text, which is less than or equal to max lines */
-.block-with-text:after {
-  /* points in the end */
+
+label {
+  display: block;
+  position: relative;
+  margin: 15px;
+  padding: 10px 25px 10px 55px;
+  border-radius: 70px;
+  color: #fff;
+  background-color: #6a8494;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color .2s, box-shadow .2s;
+}
+
+label::before {
   content: '';
-  /* absolute position */
+  display: block;
   position: absolute;
-  /* set position to right bottom corner of text */
-  right: 0;
-  /* set width and height */
-  width: 1em;
-  height: 1em;
-  margin-top: 0.2em;
-  /* bg color = bg color under block */
-  background: white;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  width: 32px;
+  border: 3px solid #fff;
+  border-radius: 100px;
+  transition: background-color .2s;
 }
+
+label:hover, input:focus + label {
+  box-shadow: 0 0 20px rgba(0, 0, 0, .6);
+}
+
+input:checked + label {
+  background-color: #ab576c;
+}
+
+input:checked + label::before {
+  background-color: #fff;
+}
+
+
+/*for card style*/
+.card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card {
+  /* Styling */
+  /*width: 700px;*/
+  /*height: 400px;*/
+  background-color: rgba(0, 0, 0, .2);
+  color: white;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+}
+h3 {
+  /*color: #FC5135;*/
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 30px;
+}
+h3 span {
+  color: #d6968f;
+  display: block;
+  font-size: .55em;
+  letter-spacing: 3px;
+  margin-top: 13px;
+}
+
+/*for the submit button*/
+button {
+  background-color: #87314e;
+  color: white;
+  border: 1px #df405a solid;
+}
+
+
+
+/*for modal*/
+.modal {
+  color: black;
+}
+

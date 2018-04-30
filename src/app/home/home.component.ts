@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {NominationService} from './nomination/nomination.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,20 +14,25 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     this.searchForm = new FormGroup({
-      'searchContent': new FormControl(null)
+      'searchContent': new FormControl()
     });
+  }
+
+  // TODO: search for what?
+  onSearch() {
+    alert('search' + this.searchForm.value.searchContent);
+  }
+
+  login() {
+
   }
 
   onLoadNominatePage() {
     this.router.navigate(['/nominate']);
-  }
-
-  onSearch() {
-    alert('search' + this.searchForm.value.searchContent);
   }
 
 
