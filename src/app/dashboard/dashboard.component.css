@@ -4,3 +4,12 @@
   height: 100px;
 
 }
+
+body {
+  background-color: white !important;
+  color: black !important;
+}
+
+.modal {
+  color: black;
+}

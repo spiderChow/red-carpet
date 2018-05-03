@@ -23,7 +23,6 @@
             <th scope="col">id </th>
             <th scope="col">name </th>
             <th scope="col">introduction </th>
-            <th scope="col">remark </th>
             <th scope="col">referee </th>
             <th scope="col">school </th>
             <th scope="col">type </th>
@@ -39,7 +38,6 @@
             <td>{{ nominee.name }}</td>
             <td>{{ nominee.introduction }}</td>
 
-            <td>{{ nominee.remark }}</td>
             <td>{{ nominee.referee }}</td>
 
             <td>{{ nominee.school.name }}</td>
@@ -47,9 +45,9 @@
             <td>{{ nominee.passed }}</td>
             <td>
               <div class="btn-group" role="group" >
-                <button class="btn btn-outline-info" (click)="viewNominee(nominee);" data-toggle="modal" data-target="#nomineeModal">查看详细</button>
-                <button class="btn btn-outline-danger" (click)="deleteNominee(nominee);">删除</button>
-                <button class="btn btn-outline-info" (click)="passNominee(nominee);">审核通过</button>
+                <button class="btn " (click)="viewNominee(nominee);" data-toggle="modal" data-target="#nomineeModal">查看详细</button>
+                <button class="btn " (click)="deleteNominee(nominee);">删除</button>
+                <button class="btn " (click)="passNominee(nominee);">审核通过</button>
               </div>
             </td>
 
@@ -68,7 +66,7 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" (click)="addSchool()">添加学院</button>
+            <button class="btn btn-outline-secondary" type="button">添加学院</button>
           </div>
         </div>
         <div class="w-100"></div>

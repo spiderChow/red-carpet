@@ -41,4 +41,20 @@ export class Nominee {
 
   }
 
+  converFromNominee(n: Nominee) {
+    this.id = n.id;
+    this.introduction = n.introduction;
+    this.name = n.name;
+    this.referee = n.referee;
+    this.refereeId = n.refereeId;
+    this.refereeContactInfo = n.refereeContactInfo;
+    this.remark = n.remark;
+    this.story = n.story;
+    this.school =  n.school;
+    this.type = n.type;
+    this.photo = n.photo;
+    this.passed = n.passed;
+    this.votesNumber = n.votesNumber;
+  }
+
 }

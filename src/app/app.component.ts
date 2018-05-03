@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import * as $ from 'jquery';
-import {DashboardService} from './services/dashboard.service';
-import {LoginService} from './services/login.service';
+
 
 @Component({
   selector: 'app-root',

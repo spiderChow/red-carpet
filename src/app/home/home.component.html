@@ -11,17 +11,17 @@
       </div>
     </div>
   </div>
-  <div class="collapse" id="navbarRule" style="">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4>提名须知</h4>
-          <p class="text-muted">{{ rule }}</p>
+  <!--<div class="collapse" id="navbarRule" style="">-->
+    <!--<div class="container">-->
+      <!--<div class="row">-->
+        <!--<div class="col-sm-8 col-md-7 py-4">-->
+          <!--<h4>提名须知</h4>-->
+          <!--<p class="text-muted">{{ rule }}</p>-->
 
-        </div>
-      </div>
-    </div>
-  </div>
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
   <nav class="navbar ">
     <a class="navbar-brand" href="#" ><strong>FD</strong><i class="iconfont">&#xe614;</i><strong>HongTan</strong></a>
 
@@ -33,12 +33,12 @@
       <!--</div>-->
     <!--</form>-->
     <div class="d-flex justify-content-end">
-      <button class="btn mr-1" (click)="onLoadNominatePage()" id="nominate-button">我要提名</button>
+      <button class="btn mr-1 " (click)="onLoadNominatePage()" id="nominate-button">我要提名</button>
 
-      <button class="btn mr-1" data-toggle="collapse"  data-target="#navbarRule" aria-controls="navbarRule" aria-expanded="false" aria-label="Toggle navigation">
-        提名须知
-      </button>
-      <button class="btn mr-1" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+      <!--<button class="btn mr-1" data-toggle="collapse"  data-target="#navbarRule" aria-controls="navbarRule" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--提名须知-->
+      <!--</button>-->
+      <button class="btn mr-1 navbar-toggler" data-toggle="modal" data-target="#info" >
         红毯晚会相关信息
       </button>
 
@@ -64,6 +64,27 @@
   <!--</div>-->
 
   <app-nomination></app-nomination>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoLabel">红毯晚会信息</h5>
+      </div>
+      <div class="modal-body">
+
+        <p>红毯晚会信息 </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 

@@ -1,130 +1,125 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../services/login.service';
-import * as firebaseui from 'firebaseui';
-import * as firebase from 'firebase';
-import {Form, NgForm} from '@angular/forms';
+import {Form, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {UserService} from '../services/user.service';
 
+declare var initGeetest: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  message: string;
+export class LoginComponent implements OnInit {
+  refereeForm: FormGroup;
+  adminForm: FormGroup;
+  gtValid = false;
+   isAdmin;
   @ViewChild('f') f: NgForm;
 
-  constructor(public loginService: LoginService, public router: Router) {
+  constructor(private userService: UserService, private loginService: LoginService, private router: Router) {
+    /** window.location.href = 'https://tac.fudan.edu.cn/oauth2/authorize.act?client_id=1b135b2c-21ec-40ff-8848-f46233c644a1&response_type=code&state=1234&redirect_uri=http://yst.fudan.edu.cn/oauth';
+     登录后跳转到：
+     http://yst.fudan.edu.cn/oauth?client_id=1b135b2c-21ec-40ff-8848-f46233c644a1&code=7af9b33c-947a-4678-aa70-1b89f4e79ac5&scope=&state=1234
+     或许用Nginx设置 yst.fudan.edu.cn 转到本服务器 后面的controller 一顿操作得到 username 在还给 index？？？
+     */
+
+    if (this.userService.modifyNominee == null) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+
+    }
+    this.refereeForm = new FormGroup(
+      {
+        'referee': new FormControl(null, Validators.required),
+        'refereeContactInfo': new FormControl(null, Validators.required),
+      }
+    );
+    this.adminForm = new FormGroup(
+      {
+        'username': new FormControl(null, Validators.required),
+      }
+    );
+
   }
 
 
-  login() {
-    this.message = 'Trying to log in ...';
-
-    const userId = (<HTMLInputElement>document.getElementById('username')).value ;
-    // const password = (<HTMLInputElement>document.getElementById('password')).value ; // TODO: how to hash the password?
+  ngOnInit() {
 
 
-
-
-    this.loginService.login(userId).subscribe(
+    this.loginService.gtInit().subscribe(
       data => {
-        console.log(data['body']);
-        this.router.navigate(['nominate']);
-        this.loginService.isLoggedIn = data['body'];
+        console.log(data);
+        let that = this;
 
+        initGeetest(
+          {
+            // 以下配置参数来自服务端 SDK
+            gt: data['gt'],
+            challenge: data['challenge'],
+            offline: !data['success'],
+            new_captcha: true,
+            product: 'popup'
+          }, function (captchaObj) {
+            captchaObj.appendTo('#captchaBox'); // 将验证按钮插入到宿主页面中captchaBox元素内
+            captchaObj.onReady(function () {
+              console.log('ready');
+            }).onSuccess(function () {
+                // your code
+                console.log('success');
+                that.gtValid = true;
+              }
+            ).onError(function () {
+              console.log('error');
+            });
+          });
       }
     );
-    // this.loginService.login(userId, password).subscribe(data => {
-    //   alert('login');
-    //   alert(data['body']);
-    //   if (this.loginService.isLoggedIn) {
-    //     // Get the redirect URL from our auth service
-    //     // If no redirect has been set, use the default
-    //     const redirect = this.loginService.redirectUrl ? this.loginService.redirectUrl : '/nominate';
-    //
-    //     // Redirect the user
-    //     this.router.navigate([redirect]);
-    //   }
-    // });
+
+  }
+
+
+  refereeValid() {
+    if (!this.gtValid) {
+      alert('需要验证才能提交');
+      return;
+    }
+
+    const referee = this.refereeForm.get('referee').value;
+    const refereeContactInfo = this.refereeForm.get('refereeContactInfo').value;
+    // 查询 是否是
+    this.userService.refereeValid(referee, refereeContactInfo).subscribe(
+      data => {
+        console.log(data['body']);
+        const isValid = data['body'];
+        if (isValid) {
+          this.router.navigate(['/modify']);
+
+        } else {
+          alert('没通过验证');
+        }
+      }
+    );
+
+
   }
 
   logout() {
     this.loginService.logout();
   }
 
-  signUp(f: NgForm) {
-
-
-
-
-
-
-
-
-
-    const config = {
-      apiKey: 'AIzaSyBgZ8kKdeXOMtwr5OheuYNEtngBs0vCT2E',
-      authDomain: 'red-carpet-e4162.firebaseapp.com',
-      databaseURL: 'https://red-carpet-e4162.firebaseio.com',
-      projectId: 'red-carpet-e4162',
-      storageBucket: 'red-carpet-e4162.appspot.com',
-      messagingSenderId: '191054498306'
-    };
-    firebase.initializeApp(config);
-    firebase.auth().languageCode = 'it';
-
-    const lf = this.login;
-
-    function func(currentUser, credential, redirectUrl) {
-      // User successfully signed in.
-      // Return type determines whether we continue the redirect automatically
-      // or whether we leave that to developer to handle.
-      console.log(currentUser);
-      alert(currentUser.email);
-      lf();
-      // f.form.patchValue({
-      //     username : currentUser.email
-      //   }
-      // );
-      // (<HTMLInputElement>document.getElementById('username')).value = currentUser.email;
-      // console.log(credential);
-      // console.log(redirectUrl);
-      return true;
-    }
-
-
-
-    // const ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // const uiConfig = {
-    //   callbacks: {
-    //     signInSuccess: func,
-    //     uiShown: function() {
-    //       // The widget is rendered.
-    //       // Hide the loader.
-    //       document.getElementById('loader').style.display = 'none';
-    //     }
-    //   },
-    //   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    //   signInFlow: 'popup',
-    //   signInSuccessUrl: 'nominate',
-    //   signInOptions: [
-    //     // Leave the lines as is for the providers you want to offer your users.
-    //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    //     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    //     firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    //     firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    //     firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    //     firebase.auth.PhoneAuthProvider.PROVIDER_ID
-    //   ],
-    //   // Terms of service url.
-    //   tosUrl: 'https://www.google.com'
-    // };
-    // ui.start('#firebaseui-auth-container', uiConfig);
+  admin() {
+    const userId = this.adminForm.get('username').value;
+    this.loginService.admin(userId).subscribe(data => {
+      const isExisted = data['body'];
+      if (isExisted) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        alert('口令错误');
+      }
+    });
   }
 
-  signUpEmail(email) {
-
-  }
 }

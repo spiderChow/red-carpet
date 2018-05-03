@@ -17,6 +17,10 @@ import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
 import {DashboardService} from './services/dashboard.service';
 import {NomineeResolver} from './router-helper/NomineeResolver';
+import {ModifyGuardService} from './router-helper/modify-guard.service';
+import {SchoolTypesResolver} from './router-helper/schoolTypes-resolver';
+import {NomineeTypesResolver} from './router-helper/nomineeTypes-resolver';
+import {ModifyResolver} from './router-helper/modify-resolver';
 
 
 const appRoutes: Routes = [
@@ -26,16 +30,26 @@ const appRoutes: Routes = [
       nominees: NomineeResolver
     }
   },
+
+  {
+    path: 'modify',
+    component: NominatePageComponent,
+    // canActivate: [ ModifyGuardService],
+    resolve: {
+      formNominee: ModifyResolver,
+      schools: SchoolTypesResolver,
+      types: NomineeTypesResolver
+    }
+    // canActivateChild: [UserGuard]
+  },
   {
     path: 'nominate',
     component: NominatePageComponent,
-    canActivate: [UserGuard]
-  },
-  {
-    path: 'nominate/:id',
-    component: NominatePageComponent,
-    canActivate: [UserGuard],
-    // canActivateChild: [UserGuard]
+    // canActivate: [UserGuard],
+    resolve: {
+      schools: SchoolTypesResolver,
+      types: NomineeTypesResolver
+    }
   },
   {path: 'nominate/:superid', component: NominatePageComponent},
   {
@@ -62,7 +76,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, {enableTracing: false}),  // <-- debugging purposes only
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
@@ -72,7 +86,11 @@ const appRoutes: Routes = [
     UserService,
     DashboardService,
     NomineeResolver,
-    UserGuard
+    SchoolTypesResolver,
+    NomineeTypesResolver,
+    UserGuard,
+    ModifyGuardService,
+    ModifyResolver
   ],
   bootstrap: [AppComponent]
 })
