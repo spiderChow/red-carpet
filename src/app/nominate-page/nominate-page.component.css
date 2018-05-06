@@ -8,11 +8,11 @@ img{
 
 }
 
-#submit-btn {
-  background-color: #87314e;
-  color: white;
-  border: 1px #870242 solid;
-}
+/*#submit-btn {*/
+  /*background-color: #87314e;*/
+  /*color: white;*/
+  /*border: 1px #870242 solid;*/
+/*}*/
 
 
 .help-block {
@@ -20,20 +20,28 @@ img{
 }
 
 
+.container {
+  color: rgb(67,96,181);
+
+}
 
 
+input, textarea, select {
+  background-color: white;
+  color: black;
 
-input, textarea, label, select {
+}
+
+label {
   background-color: transparent;
-  color: white;
+  color: rgb(67,96,181);
 
 }
 
 /*for the file upload button*/
 #uploadLabel{
-  color: #fefefe;
+  background-color: white;
   border-color: white;
-  opacity: 0.8;
 }
 .input-group-text{
   border-color: white;
@@ -42,7 +50,7 @@ input, textarea, label, select {
 
 /*for the placeholder */
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-  color: #fefefe;
+  color: #323a45;
   opacity: 0.3;
 }
 input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder {

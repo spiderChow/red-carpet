@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Nominee} from '../models/nominee.model';
 import {School} from '../models/school.model';
 import {Type} from '../models/Type.model';
 
 @Injectable()
 export class DashboardService {
+  isAdminPassed = false;
 
-  context = '';
+  context = '/man';
 
   loadNominationUrl = '/hongtan/vote/api/admin/nominations/';
   passNomineeUrl = '/hongtan/vote/api/admin/nominations/nomination/';
@@ -35,6 +36,8 @@ export class DashboardService {
 
   POST_SHARE_CONTENT = '/hongtan/vote/api/admin/we-chat/share-contents/';
   DELETE_SHARE_CONTENT_BY_ID = '/hongtan/vote/api/admin/we-chat/share-contents/share-content/';
+  POST_SUPERVOTE = '/hongtan/vote/api/user/votes/super/';
+
 
   constructor(private http: HttpClient) {
   }
@@ -71,6 +74,12 @@ export class DashboardService {
 
   deleteType(t: Type) {
     return this.http.delete(this.context + this.DELETE_NOMINATION_BY_ID + t.id);
+  }
+
+  superVote(nominee: Nominee, weight: number) {
+    console.log(nominee);
+    return this.http.get(this.context + this.POST_SUPERVOTE + nominee.id + '/' + weight);
+
   }
 
 }

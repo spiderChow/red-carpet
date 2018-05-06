@@ -11,7 +11,7 @@ export class UserService {
   modifyNominee: Nominee;
   imgSrc;
   private nominees: Observable<Nominee[]>;
-  context = '';
+  context = '/man';
 
   GET_PASSED_NOMINATIONS_LIST = '/hongtan/vote/api/user/nominations/isPassed';
   GET_NOMINATION_BY_ID = '/hongtan/vote/api/user/nominations/Nomination/'; // full info for modify
@@ -28,7 +28,6 @@ export class UserService {
 
   POST_IMG = '/hongtan/vote/api/user/nominations/photo';
   IS_REFEREE_VALID = '/hongtan/vote/api/admin/nominations/refereeinfo'; // TODO: need test
-
 
 
   constructor(private http: HttpClient) {
@@ -70,7 +69,7 @@ export class UserService {
   }
 
   postVotes(ids) {
-    // const headers = new HttpHeaders({'Content-Type': 'application/json', 'X-Forwarded-For': '127.3.1.9'});
+
     console.log(ids);
     return this.http.post(this.context + this.POST_VOTE, ids);
   }

@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, NgForm} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import {LoginService} from '../services/login.service';
 
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +16,17 @@ export class HomeComponent implements OnInit {
   rule = '提名面向范围：全校本科、硕士、博士毕业生，全校教职工，及其他与复旦毕业生相关人士\n' +
     '可提名个人或团体，可提名本人或他人，单次提名2人及以上时请选择团体，提名1人请选择个人';
 
+  currentPic = 0;
+  img1 = '';
 
   constructor(private router: Router,
               private userService: UserService,
               private  loginService: LoginService) {
+
   }
 
   ngOnInit() {
+
   }
 
   login() {
@@ -30,6 +36,8 @@ export class HomeComponent implements OnInit {
   onLoadNominatePage() {
     this.router.navigate(['/nominate']);
   }
+
+
 
 
 }

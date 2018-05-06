@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {LoginService} from '../services/login.service';
 import {Form, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
+import {DashboardService} from '../services/dashboard.service';
 
 declare var initGeetest: any;
 
@@ -18,7 +19,9 @@ export class LoginComponent implements OnInit {
    isAdmin;
   @ViewChild('f') f: NgForm;
 
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router) {
+  constructor(private userService: UserService, private loginService: LoginService,
+              private dashboardService: DashboardService,
+              private router: Router) {
     /** window.location.href = 'https://tac.fudan.edu.cn/oauth2/authorize.act?client_id=1b135b2c-21ec-40ff-8848-f46233c644a1&response_type=code&state=1234&redirect_uri=http://yst.fudan.edu.cn/oauth';
      登录后跳转到：
      http://yst.fudan.edu.cn/oauth?client_id=1b135b2c-21ec-40ff-8848-f46233c644a1&code=7af9b33c-947a-4678-aa70-1b89f4e79ac5&scope=&state=1234
@@ -106,15 +109,14 @@ export class LoginComponent implements OnInit {
 
   }
 
-  logout() {
-    this.loginService.logout();
-  }
+
 
   admin() {
     const userId = this.adminForm.get('username').value;
     this.loginService.admin(userId).subscribe(data => {
       const isExisted = data['body'];
       if (isExisted) {
+        this.dashboardService.isAdminPassed = true;
         this.router.navigate(['/dashboard']);
       } else {
         alert('口令错误');

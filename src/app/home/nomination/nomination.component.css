@@ -1,82 +1,15 @@
-
 #list {
   overflow-y: auto;
   height: 500px;
 }
 
-/*.card-text{*/
-/*height: 71px;*/
-/*overflow-x: hidden;*/
-/*text-overflow: ellipsis;*/
-/*white-space: nowrap;*/
-/*}*/
-
-/*!* styles for '...' *!*/
-/*.block-with-text {*/
-  /*!* hide text if it more than N lines  *!*/
-  /*overflow: hidden;*/
-  /*!* for set '...' in absolute position *!*/
-  /*position: relative;*/
-  /*!* use this value to count block height *!*/
-  /*line-height: 1.2em;*/
-  /*!* max-height = line-height (1.2) * lines max number (3) *!*/
-  /*max-height: 3.6em;*/
-
-  /*!* fix problem when last visible word doesn't adjoin right side  *!*/
-  /*text-align: justify;*/
-  /*!* place for '...' *!*/
-  /*margin-right: -1em;*/
-  /*padding-right: 1em;*/
-/*}*/
-
-/*!* create the ... *!*/
-/*.block-with-text:before {*/
-  /*!* points in the end *!*/
-  /*content: '...';*/
-  /*!* absolute position *!*/
-  /*position: absolute;*/
-  /*!* set position to right bottom corner of block *!*/
-  /*right: 0;*/
-  /*bottom: 0;*/
-/*}*/
-
-/*!* hide ... if we have text, which is less than or equal to max lines *!*/
-/*.block-with-text:after {*/
-  /*!* points in the end *!*/
-  /*content: '';*/
-  /*!* absolute position *!*/
-  /*position: absolute;*/
-  /*!* set position to right bottom corner of text *!*/
-  /*right: 0;*/
-  /*!* set width and height *!*/
-  /*width: 1em;*/
-  /*height: 1em;*/
-  /*margin-top: 0.2em;*/
-  /*!* bg color = bg color under block *!*/
-  /*!*background: white;*!*/
-  /*!*background-color: rgba(0,0,0,.2);*!*/
-
-/*}*/
-
-
-
-.view-card-body {
-  cursor: grab;
-}
-
-#nominations-list {
-  /*background-color: #205493;*/
-}
-
-
-
 /* for the checked box*/
-input {
+#nominations-list input {
   position: absolute;
   left: -9999px;
 }
 
-label {
+#nominations-list label {
   display: block;
   position: relative;
   margin: 15px;
@@ -84,6 +17,8 @@ label {
   border-radius: 70px;
   color: #fff;
   background-color: #6a8494;
+  /*background-color: rgb(67,96,181);*/
+
   box-shadow: 0 0 20px rgba(0, 0, 0, .2);
   white-space: nowrap;
   cursor: pointer;
@@ -91,7 +26,7 @@ label {
   transition: background-color .2s, box-shadow .2s;
 }
 
-label::before {
+#nominations-list label::before {
   content: '';
   display: block;
   position: absolute;
@@ -104,15 +39,20 @@ label::before {
   transition: background-color .2s;
 }
 
-label:hover, input:focus + label {
+#nominations-list label:hover, #nominations-list input:focus + label {
   box-shadow: 0 0 20px rgba(0, 0, 0, .6);
 }
 
-input:checked + label {
-  background-color: #ab576c;
+#nominations-list input:checked + label {
+  background-color: rgb(67,96,181);
+  /*background-color: rgb(67,96,181);*/
+
+}
+.progress-bar {
+  background-color: rgb(67,96,181);
 }
 
-input:checked + label::before {
+#nominations-list input:checked + label::before {
   background-color: #fff;
 }
 
@@ -126,8 +66,8 @@ input:checked + label::before {
   /* Styling */
   /*width: 700px;*/
   /*height: 400px;*/
-  background-color: rgba(0, 0, 0, .2);
-  color: white;
+  background-color: rgba(255, 255, 255);
+  color: black;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
@@ -137,12 +77,13 @@ h3 {
   text-transform: uppercase;
   font-weight: 400;
   line-height: 1;
-  margin-top: 20px;
+  margin-top: 8px;
   text-align: center;
-  font-size: 30px;
+  font-size: 26px;
 }
 h3 span {
-  color: #d6968f;
+  /*color: #d6968f;*/
+  color: rgb(67,96,181);
   display: block;
   font-size: .55em;
   letter-spacing: 3px;
@@ -151,28 +92,24 @@ h3 span {
 
 /*for the submit button*/
 button {
-  background-color: #87314e;
+  /*background-color: #87314e;*/
+  background-color: rgb(67,96,181);
   color: white;
-  border: 1px #df405a solid;
+  /*border: 1px #df405a solid;*/
 }
 
 .chosen-item {
-  background-color: #df405a;
+  /**/
+  background-color: rgb(67,96,181);
   color: white;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+  overflow-x: hidden;
 
 }
+
 .chosen-item:hover{
-  cursor: grab;
+  cursor: pointer;
 }
-
-/*#chosen-items {*/
-  /*list-style-type: circle;*/
-
-/*}*/
-/*#chosen-items li{*/
-  /*display: inline;*/
-/*}*/
 
 
 
@@ -180,4 +117,10 @@ button {
 .modal {
   color: black;
 }
+
+#captchaBox {
+  width: 100%;
+  min-width: 20px;
+}
+
 

@@ -1,7 +1,8 @@
 {
-  "/hongtan/vote": {
+  "/man/hongtan/vote": {
     "target": "http://localhost:9090/",
-    "secure": false,
-    "changeOrigin": true
+    "pathRewrite": {
+      "^/man": ""
+    }
   }
 }

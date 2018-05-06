@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
   <div class="row">
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -7,12 +7,8 @@
       <li class="nav-item">
         <a class="nav-link" href="/dashboard">被提名人</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">学院列表</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+
+
     </ul>
 
     <main role="main" class="col-12">
@@ -20,7 +16,6 @@
       <table class="table table-striped table-bordered mt-5">
         <thead>
           <tr>
-            <th scope="col">id </th>
             <th scope="col">name </th>
             <th scope="col">introduction </th>
             <th scope="col">referee </th>
@@ -34,8 +29,7 @@
         <tbody>
 
           <tr *ngFor="let nominee of nominees;">
-            <td scope="row">{{ nominee.id }}</td>
-            <td>{{ nominee.name }}</td>
+            <td scope="row">{{ nominee.name }}</td>
             <td>{{ nominee.introduction }}</td>
 
             <td>{{ nominee.referee }}</td>
@@ -55,62 +49,54 @@
         </tbody>
 
       </table>
-      <div class="row"> <button class="btn btn-info" (click)="addNiminee();">添加一个被提名人</button>
-
-
-
-      </div>
-
-      <div class="row">
-
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">添加学院</button>
-          </div>
-        </div>
-        <div class="w-100"></div>
-
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">添加类型</button>
-          </div>
-        </div>
-        <div class="w-100"></div>
-
-
-      </div>
-
-
-
 
     </main>
   </div>
 </div>
 
 
+<!--votesNumber: number;-->
+
+
 <!-- Modal -->
-<div class="modal fade" id="nomineeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="nomineeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="nomineeModalLabel">详细信息</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h2>{{ modalNominee.name}} </h2>
+        <div class="col-12 text-center ">
+          <img class="img-thumbnail" id="blah" [src]="imgSrc" alt="your image" [hidden]="imgSrc==null || imgSrc.length==0"/>
+        </div>
+        <p>id：{{ modalNominee.id}} </p>
+        <p>姓名：{{ modalNominee.name}} </p>
         <p>简介：{{ modalNominee.introduction}} </p>
-        <p>{{ modalNominee.story}} </p>
+        <p class="text-center">{{ modalNominee.story}} </p>
         <p>专业：{{ modalNominee.school.name}} </p>
+        <p>类型：{{ modalNominee.type.name}} </p>
         <p>Ta的票数：{{ modalNominee.votesNumber}} </p>
-        <p>会有图片</p>
+        <p>remark：{{ modalNominee.remark}} </p>
         <hr>
+        <p>是否通过：{{ modalNominee.passed}} </p>
         <p>提名人：{{ modalNominee.referee}} </p>
+        <p>提名人联系方式：{{ modalNominee.refereeContactInfo}} </p>
+
+        <div class="col-12">
+          <form (ngSubmit)="superVote(f)" #f="ngForm">
+            <label for="superVotes"> 超级投票 一次加100票不是梦</label>
+            <input class="form-control" type="text" placeholder="填写本次超级投票的权重" id="superVotes" ngModel name="weight">
+            <button type="submit" class="btn-danger"> 超级投票 </button>
+
+          </form>
+        </div>
+
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="modifyNominee(modalNominee);">修改</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal" (click)="modifyNominee(modalNominee)">修改
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

@@ -15,7 +15,6 @@ import {validate} from 'codelyzer/walkerFactory/walkerFn';
 declare var initGeetest: any;
 
 
-
 @Component({
   selector: 'app-nominate-page',
   templateUrl: './nominate-page.component.html',
@@ -56,7 +55,7 @@ export class NominatePageComponent implements OnInit {
         'remark': new FormControl(null),
       }
     );
-    this.imgSrc = this.userService.imgSrc;
+
 
   }
 
@@ -99,8 +98,9 @@ export class NominatePageComponent implements OnInit {
         console.log(data);
         this.schools = data.schools;
         this.types = data.types;
+        // if it jump as the '/modify' and has the formNominee in DB
         if (data.formNominee) {
-          this.isModifyPage = true;
+          this.isModifyPage = true; // it is not the nominate page
           this.formNominee.converFromNominee(data.formNominee);
 
           this.nomineeForm.patchValue({
@@ -114,7 +114,7 @@ export class NominatePageComponent implements OnInit {
           this.nomineeForm.controls['school'].setValue(this.formNominee.school.id, {onlySelf: true});
           this.nomineeForm.controls['type'].setValue(this.formNominee.type.id, {onlySelf: true});
 
-
+          this.imgSrc = this.userService.imgSrc; // since the img Base64 has been loaded
         }
       }
     );
@@ -172,12 +172,43 @@ export class NominatePageComponent implements OnInit {
       alert('验证后才能提交');
       return;
     }
-    // first, upload the photo
-    // this.uploadPhoto();
+    // first, upload the photo, then bind the new photo name in the nominee. Make the http execute in series
     /**
      * upload the file and return the filename in the disk
      */
-    // make the http execute in series
+
+    /** if the imgSrc is not null, the nominee should has a photo
+     *     if the file is not null, upload a photo and get the remote name
+     *     else no change
+     *  else the nominee should not has a photo
+     */
+    if (this.imgSrc != null) {
+      if (this.file != null) {
+        // change photo need to upload photo
+        this.uploadphotoAndNominee();
+      } else {
+        // no change in '/modify'
+        // set the original photo name in it
+        // then, bind other form data
+        this.formNominee.converFromForm(this.nomineeForm);
+        // last but not least, bind the loginUser with this Nominee
+        this.formNominee.refereeId = this.nomineeForm.get('refereeContactInfo').value;
+        console.log(this.formNominee);
+        this.uploadNominee();
+      }
+    } else {
+      // set the nominee.photo as null
+      this.formNominee.photo = null;
+      // then, bind other form data
+      this.formNominee.converFromForm(this.nomineeForm);
+      // last but not least, bind the loginUser with this Nominee
+      this.formNominee.refereeId = this.nomineeForm.get('refereeContactInfo').value;
+      console.log(this.formNominee);
+      this.uploadNominee();
+    }
+  }
+
+  uploadphotoAndNominee() {
     this.userService.postPhoto(this.file).subscribe(
       data => {
         this.formNominee.photo = data['body'];
@@ -187,32 +218,7 @@ export class NominatePageComponent implements OnInit {
         // last but not least, bind the loginUser with this Nominee
         this.formNominee.refereeId = this.nomineeForm.get('refereeContactInfo').value;
         console.log(this.formNominee);
-        if (this.isModifyPage) {
-          this.userService.updateNomination(this.formNominee).subscribe(
-            response => {
-              console.log(response);
-              alert('上传提名人信息成功');
-              this.router.navigate(['/']);
-            },
-            error1 => {
-              console.log(error1);
-              alert('似乎上传失败了');
-            }
-          );
-
-        } else {
-          this.userService.postNomination(this.formNominee).subscribe(
-            response => {
-              console.log(response);
-              alert('上传提名人信息成功');
-              this.router.navigate(['/']);
-            },
-            error1 => {
-              console.log(error1);
-              alert('似乎上传失败了');
-            }
-          );
-        }
+        this.uploadNominee();
       },
       error => {
         console.log(error);
@@ -223,37 +229,40 @@ export class NominatePageComponent implements OnInit {
         // last but not least, bind the loginUser with this Nominee
         this.formNominee.refereeId = this.nomineeForm.get('refereeContactInfo').value;
         console.log(this.formNominee);
-        if (this.isModifyPage) {
-          this.userService.updateNomination(this.formNominee).subscribe(
-            response => {
-              console.log(response);
-              alert('上传提名人信息成功');
-              this.router.navigate(['/']);
-            },
-            error1 => {
-              console.log(error1);
-              alert('似乎上传失败了');
-            }
-          );
-
-        } else {
-          this.userService.postNomination(this.formNominee).subscribe(
-            response => {
-              console.log(response);
-              alert('上传提名人信息成功');
-              this.router.navigate(['/']);
-            },
-            error1 => {
-              console.log(error1);
-              alert('似乎上传失败了');
-            }
-          );
-        }
-
+        this.uploadNominee();
       }
     );
+  }
 
+  // internal
+  uploadNominee() {
+    // 修改的话 需要将isPassed置为 false 么？
+    if (this.isModifyPage) {
+      this.userService.updateNomination(this.formNominee).subscribe(
+        response => {
+          console.log(response);
+          alert('修改提名人信息成功');
+          this.router.navigate(['/']);
+        },
+        error1 => {
+          console.log(error1);
+          alert('似乎上传失败了, 请联系管理员');
+        }
+      );
 
+    } else {
+      this.userService.postNomination(this.formNominee).subscribe(
+        response => {
+          console.log(response);
+          alert('上传提名人信息成功');
+          this.router.navigate(['/']);
+        },
+        error1 => {
+          console.log(error1);
+          alert('似乎修改失败了,请联系管理员');
+        }
+      );
+    }
   }
 
 

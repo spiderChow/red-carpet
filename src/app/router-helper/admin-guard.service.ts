@@ -2,17 +2,18 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {LoginService} from '../services/login.service';
 import {Nominee} from '../models/nominee.model';
+import {DashboardService} from '../services/dashboard.service';
 
 @Injectable()
-export class UserGuard implements CanActivate, CanActivateChild {
-  constructor(private loginService: LoginService, private router: Router) {
+export class AdminGuard implements CanActivate, CanActivateChild {
+  constructor(private dashboardService: DashboardService, private router: Router) {
 
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log('UserGuard # canActivate called');
-    if (!this.loginService.isLoggedIn) {
-      alert('请先登录');
+    console.log('AdminGuard # canActivate called');
+    if (!this.dashboardService.isAdminPassed) {
+      alert('管理员请先登陆');
       return false;
     } else {
       return true;

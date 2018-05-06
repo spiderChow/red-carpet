@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {DomSanitizer} from '@angular/platform-browser';
 import {LoginService} from '../../services/login.service';
+import {CookieService} from 'ngx-cookie-service';
 
 declare var initGeetest: any;
 
@@ -19,12 +20,12 @@ declare var initGeetest: any;
 
 })
 export class NominationComponent implements OnInit {
-  public nominees;
+  public nominees: Nominee[];
   max = 0;
   modalNominee: Nominee = new Nominee();
   @ViewChild('f') voteForm: NgForm;
   chosenNominees: Nominee[] = [];
-  maxChosenSize = 5;
+  maxChosenSize = 10;
   imgSrc;
 
   gtValid = false;
@@ -33,7 +34,8 @@ export class NominationComponent implements OnInit {
               private userService: UserService,
               private loginService: LoginService,
               private route: ActivatedRoute,
-              private sanitizer: DomSanitizer
+              private sanitizer: DomSanitizer,
+              private cookieService: CookieService
   ) {
   }
 
@@ -51,7 +53,8 @@ export class NominationComponent implements OnInit {
             challenge: data['challenge'],
             offline: !data['success'],
             new_captcha: true,
-            product: 'popup'
+            product: 'popup',
+            width: '1em'
 
           }, function (captchaObj) {
             captchaObj.appendTo('#captchaBox'); // 将验证按钮插入到宿主页面中captchaBox元素内
@@ -104,6 +107,8 @@ export class NominationComponent implements OnInit {
 
       }
     );
+    this.userService.modifyNominee = null;
+    this.userService.imgSrc = null;
 
     // handle the effect of the progress
 
@@ -154,11 +159,25 @@ export class NominationComponent implements OnInit {
     );
     console.log(this.chosenNominees);
     console.log(ids);
+    // console.log(this.cookieService.getAll());
+    //
+    // const da = new Date().getTime() + 1 * 5000; //毫秒 1 * 1000 * 60 * 60 * 24 天数
+    // console.log(da);
+    // this.cookieService.delete('vote');
+    console.log(this.cookieService.getAll());
+
     this.userService.postVotes(ids).subscribe(
       data => {
         console.log(data);
         alert('投票成功');
-        this.fetchItSelf();
+        // set 'vote' in the cookie and set time for 24 hours (ONE day)
+        this.cookieService.set('vote', 'whatvalueshouldiinject', 1);
+        const cookieValue = this.cookieService.get('vote');
+        console.log('设置cookie');
+        console.log(cookieValue);
+        location.reload();
+
+
       },
       error => {
         console.log(error);
@@ -206,38 +225,60 @@ export class NominationComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  onSearch(f: NgForm) {
+    const search = f.form.get('search').value;
+    console.log(search);
+    let isFind = false;
+    this.nominees.map(nominee => {
+      const loc = (String(nominee.name).toLowerCase()).indexOf(String(search).toLowerCase());
+      if (loc >= 0) {
+        console.log(nominee);
+        isFind = true;
+
+        // first delete the nominee and then add at the first
+        const arrLoc = this.nominees.indexOf(nominee);
+        this.nominees.splice(arrLoc, 1);
+        this.nominees.splice(0, 0, nominee);
+      }
+    });
+    if (!isFind) {
+      alert('没有搜索到相关姓名哎');
+    }
+  }
+
+
   /**
    * JUST MOCK!!
    */
-  fetchItSelf() {
-    // this.userService.getPassedNomineeList().subscribe(
-    //   (data) => {
-    //     this.nominees = data['body'];
-    //     this.nominees.map(n => {
-    //       n.votesNumber = 0; // set all voteNumber as 0
-    //     });
-    //   }
-    // );
-    //
-    // this.userService.getNominationVote().subscribe(
-    //   data => {
-    //     const votes = data['body'];
-    //     votes.map(vote => {
-    //         this.nominees.map(n => {
-    //           if (n.id === vote[0]) {
-    //             n.votesNumber = vote[1];
-    //           }
-    //         });
-    //       }
-    //     );
-    //   }
-    // );
-    for (let n of this.chosenNominees) {
-      n.votesNumber++;
-      (<HTMLInputElement>document.getElementById(n.id)).checked = false;
-    }
+  // fetchItSelf() {
+  //   // this.userService.getPassedNomineeList().subscribe(
+  //   //   (data) => {
+  //   //     this.nominees = data['body'];
+  //   //     this.nominees.map(n => {
+  //   //       n.votesNumber = 0; // set all voteNumber as 0
+  //   //     });
+  //   //   }
+  //   // );
+  //   //
+  //   // this.userService.getNominationVote().subscribe(
+  //   //   data => {
+  //   //     const votes = data['body'];
+  //   //     votes.map(vote => {
+  //   //         this.nominees.map(n => {
+  //   //           if (n.id === vote[0]) {
+  //   //             n.votesNumber = vote[1];
+  //   //           }
+  //   //         });
+  //   //       }
+  //   //     );
+  //   //   }
+  //   // );
+  //   for (let n of this.chosenNominees) {
+  //     n.votesNumber++;
+  //     (<HTMLInputElement>document.getElementById(n.id)).checked = false;
+  //   }
 
-  }
+  // }
 
 
 }

@@ -12,7 +12,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './login/login.component';
-import {UserGuard} from './router-helper/user-guard.service';
+import {AdminGuard} from './router-helper/admin-guard.service';
 import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
 import {DashboardService} from './services/dashboard.service';
@@ -21,6 +21,7 @@ import {ModifyGuardService} from './router-helper/modify-guard.service';
 import {SchoolTypesResolver} from './router-helper/schoolTypes-resolver';
 import {NomineeTypesResolver} from './router-helper/nomineeTypes-resolver';
 import {ModifyResolver} from './router-helper/modify-resolver';
+import {CookieService} from 'ngx-cookie-service';
 
 
 const appRoutes: Routes = [
@@ -40,12 +41,12 @@ const appRoutes: Routes = [
       schools: SchoolTypesResolver,
       types: NomineeTypesResolver
     }
-    // canActivateChild: [UserGuard]
+    // canActivateChild: [AdminGuard]
   },
   {
     path: 'nominate',
     component: NominatePageComponent,
-    // canActivate: [UserGuard],
+    // canActivate: [AdminGuard],
     resolve: {
       schools: SchoolTypesResolver,
       types: NomineeTypesResolver
@@ -55,8 +56,8 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [UserGuard],
-    // canActivateChild: [UserGuard]
+    canActivate: [AdminGuard],
+    // canActivateChild: [AdminGuard]
   },
   {
     path: 'login',
@@ -88,9 +89,10 @@ const appRoutes: Routes = [
     NomineeResolver,
     SchoolTypesResolver,
     NomineeTypesResolver,
-    UserGuard,
+    AdminGuard,
     ModifyGuardService,
-    ModifyResolver
+    ModifyResolver,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

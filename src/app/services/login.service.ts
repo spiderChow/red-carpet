@@ -8,9 +8,8 @@ import {escape} from 'querystring';
 @Injectable()
 export class LoginService {
   isLoggedIn = false;
-  loginUserId;
 
-  context = '';
+  context = '/man';
   EXIT_USER = '/hongtan/vote/api/admin/users/user/';
   GT_INIT = '/hongtan/vote/gt/start';
   GT_SEOND = '/hongtan/vote/gt/verify';
@@ -51,10 +50,6 @@ export class LoginService {
   // // }).subscribe(data => console.log(data));
   //
   // return this.http.post('/hongtan/vote/api/admin/users/user/' , user);
-
-  logout(): void {
-    this.isLoggedIn = false;
-  }
 
   admin(userId: string) {
     return this.http.post(this.context + this.EXIT_USER,
