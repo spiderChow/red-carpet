@@ -1,8 +1,8 @@
 {
-  "/man/hongtan/vote": {
+  "/pickup/hongtan/vote": {
     "target": "http://localhost:9090/",
     "pathRewrite": {
-      "^/man": ""
+      "^/pickup": ""
     }
   }
 }

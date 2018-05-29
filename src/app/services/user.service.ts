@@ -11,7 +11,7 @@ export class UserService {
   modifyNominee: Nominee;
   imgSrc;
   private nominees: Observable<Nominee[]>;
-  context = '/man';
+  context = '/pickup';
 
   GET_PASSED_NOMINATIONS_LIST = '/hongtan/vote/api/user/nominations/isPassed';
   GET_NOMINATION_BY_ID = '/hongtan/vote/api/user/nominations/Nomination/'; // full info for modify

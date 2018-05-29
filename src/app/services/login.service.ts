@@ -9,7 +9,7 @@ import {escape} from 'querystring';
 export class LoginService {
   isLoggedIn = false;
 
-  context = '/man';
+  context = '/pickup';
   EXIT_USER = '/hongtan/vote/api/admin/users/user/';
   GT_INIT = '/hongtan/vote/gt/start';
   GT_SEOND = '/hongtan/vote/gt/verify';

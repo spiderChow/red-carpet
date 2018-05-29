@@ -8,7 +8,7 @@ import {Type} from '../models/Type.model';
 export class DashboardService {
   isAdminPassed = false;
 
-  context = '/man';
+  context = '/pickup';
 
   loadNominationUrl = '/hongtan/vote/api/admin/nominations/';
   passNomineeUrl = '/hongtan/vote/api/admin/nominations/nomination/';

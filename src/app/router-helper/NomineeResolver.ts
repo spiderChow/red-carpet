@@ -8,13 +8,13 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class NomineeResolver implements Resolve<any> {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log('NomineeResolver # resolve: getPassedNomineeList');
     return this.userService.getPassedNomineeList().map(
       data => data['body']
     );
-
   }
 }

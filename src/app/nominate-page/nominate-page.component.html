@@ -3,15 +3,13 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
     <h2 class="col-12 text-center">提名须知</h2>
-    <p class="col-9 text-center">
-      以热爱祖国为荣，以危害祖国为耻
-      以服务人民为荣，以背离人民为耻
-      以崇尚科学为荣，以愚昧无知为耻
-      以辛勤劳动为荣，以好逸恶劳为耻
-      以团结互助为荣，以损人利己为耻
-      以诚实守信为荣，以见利忘义为耻
-      以遵纪守法为荣，以违法乱纪为耻
-      以艰苦奋斗为荣，以骄奢淫逸为耻</p>
+    <ul class="col-10 col-sm-8 col-md-8">
+      <li> 提名投票开放时间：5月8日20:18-5月21日23:59</li>
+      <li> 投票期间，每IP每天可参与投票一次，选择不多于10位候选人</li>
+      <li> 若使用校内公共网络投票，每票可为候选人增加8点能量；若使用其他网络投票，每票可为候选人增加2点能量。</li>
+      <li> 若意向投票人员未在候选人列表内（请通过搜索确认），可另行提名，新提名将在24小时内完成审核</li>
+      <li> 如在投票中遇到其他技术问题，请使用复旦邮箱致信yishutuan@fudan.edu.cn</li>
+    </ul>
   </div>
 
   <hr>
@@ -20,7 +18,7 @@
       <h4 class="col-12 text-center">被提名人信息</h4>
 
       <div class="w-100"></div>
-      <div class="col-8 form-group">
+      <div class="col-12 col-sm-8 col-md-8 form-group">
         <div class="col-12 text-center">
 
           <img class="img-thumbnail" id="blah" [src]="imgSrc" alt="your image" [hidden]="imgSrc==null || imgSrc.length==0"/>
@@ -39,7 +37,7 @@
 
       <div class="w-100"></div>
 
-      <div class="col-8 form-group ">
+      <div class="col-12 col-sm-8 col-md-8 form-group ">
         <label class="col-12 control-label pl-0 pr-0">*姓名</label>
         <div class="col-12 pl-0 pr-0">
           <input type="text" class="form-control col-xs-8" placeholder="姓名或团体名" formControlName="name" required>
@@ -48,7 +46,7 @@
       </div>
 
       <div class="w-100"></div>
-      <div class="col-4 form-group">
+      <div class="col-8 col-sm-4 col-md-4 form-group">
         <label class="col-12 control-label pl-0">*院系</label>
         <div class="col-12 pl-0">
           <select class="form-control" formControlName="school" required>
@@ -60,7 +58,7 @@
         </div>
 
       </div>
-      <div class="col-4 form-group">
+      <div class="col-4 col-sm-4 col-md-4 form-group">
         <label class="col-12 control-label">*类型</label>
         <div class="col-12 pr-0">
           <select class="form-control" formControlName="type" required>
@@ -74,7 +72,7 @@
 
 
       <div class="w-100"></div>
-      <div class="col-8 form-group">
+      <div class="col-12 col-sm-8 col-md-8 form-group">
         <label class="col-xs-3 text-right">*简介</label>
         <div class="col-xs-8">
           <input type="text" class="form-control" placeholder="一句话概括，15字以内~" formControlName="introduction" required>
@@ -86,7 +84,7 @@
       </div>
 
       <div class="w-100"></div>
-      <div class="col-8 form-group">
+      <div class="col-12 col-sm-8 col-md-8 form-group">
         <label class="col-xs-3 text-right">故事</label>
         <div class="col-xs-12">
           <textarea class="form-control" rows="4" placeholder="你或者他、你们或者他们的故事，140字以内"
@@ -99,10 +97,10 @@
       </div>
 
       <div class="w-100"></div>
-      <div class="col-8 form-group">
-        <label class="col-xs-3 text-right control-label">物件</label>
+      <div class="col-12 col-sm-8 col-md-8 form-group">
+        <label class="col-xs-3 text-right control-label">在复旦的记忆里，是否有一个日子令你难以忘怀</label>
         <div class="col-xs-12">
-          <textarea class="form-control" rows="2" placeholder="若为自己提名，请填写一件最想从复旦带走的东西"
+          <textarea class="form-control" rows="2" placeholder="若为自己提名，请写下这个日子"
                     formControlName="remark"></textarea>
         </div>
       </div>
@@ -114,7 +112,7 @@
       <h4 class="col-12 text-center">提名人信息</h4>
       <h6 class="col-12 text-center">将作为后续操作凭证，请务必记牢！</h6>
       <div class="w-100"></div>
-      <div class="col-3 form-group">
+      <div class="col-6 col-sm-3 col-md-3 form-group">
         <label class="col-xs-3 text-right control-label">*姓名</label>
         <div class="col-xs-8">
           <input type="text" class="form-control" placeholder="你的名字" formControlName="referee" required>
@@ -124,7 +122,7 @@
         </div>
 
       </div>
-      <div class="col-5 form-group">
+      <div class="col-6 col-sm-5 col-md-5 form-group">
         <label class="col-xs-3 text-right control-label">*联系方式</label>
         <div class="col-xs-8">
           <input type="text" class="form-control" placeholder="推荐填写手机号" formControlName="refereeContactInfo" required>

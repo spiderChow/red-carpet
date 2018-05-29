@@ -81,32 +81,55 @@ export class NominationComponent implements OnInit {
         this.nominees.map(n => {
           n.votesNumber = 0; // set all voteNumber as 0
         });
-      }
-    );
 
-    this.userService.getNominationVote().subscribe(
-      data => {
-        const votes = data['body'];
-        console.log(votes);
-        votes.map(v => {
-          if (this.max < v[1]) {
-            this.max = v[1];
+
+        let jiaoyang;
+        let xuningsheng;
+        // make 焦阳 许宁生 在前面
+        for (let index = 0; index < this.nominees.length; index++) {
+          if (this.nominees[index].name === '焦扬') {
+            jiaoyang = this.nominees[index];
+          } else if (this.nominees[index].name === '许宁生') {
+            xuningsheng = this.nominees[index];
           }
-        });
-        console.log(this.max);
+        }
+        if (jiaoyang && xuningsheng) {
+          this.nominees.splice(this.nominees.indexOf(jiaoyang), 1);
+          this.nominees.splice(this.nominees.indexOf(xuningsheng), 1);
+          this.nominees.splice(0, 0, xuningsheng);
+          this.nominees.splice(0, 0, jiaoyang);
+        }
 
-
-        votes.map(vote => {
-            this.nominees.map(n => {
-              if (n.id === vote[0]) {
-                n.votesNumber = vote[1];
+        this.userService.getNominationVote().subscribe(
+          data2 => {
+            const votes = data2['body'];
+            console.log(votes);
+            votes.map(v => {
+              if (this.max < v[1]) {
+                this.max = v[1];
               }
             });
+            console.log(this.max);
+
+
+            votes.map(vote => {
+                this.nominees.map(n => {
+                  if (n.id === vote[0]) {
+                    n.votesNumber = vote[1];
+                  }
+                });
+              }
+            );
+
           }
         );
 
+
       }
     );
+
+
+
     this.userService.modifyNominee = null;
     this.userService.imgSrc = null;
 

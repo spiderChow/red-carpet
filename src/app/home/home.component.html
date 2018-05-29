@@ -12,34 +12,34 @@
       </div>
     </div>
   </div>
-  <nav class="navbar  m-0 ">
-    <a class="navbar-brand" href="#"><strong>FD</strong><i class="iconfont">&#xe614;</i><strong>HongTan</strong></a>
+  <nav class="navbar  m-0 pl-0  row d-flex">
+    <a class="col-4 col-lg-3 pl-0 mr-auto" href="#"><img src="../../assets/img/logotype-redcarpet.png" width="120px" ></a>
 
 
-    <div class="d-flex justify-content-end flex-wrap">
-      <a class="mr-1" (click)="login()">
-        <i class="adminfont">&#xe604;</i>
-      </a>
-      <button class="btn mr-1 p-1" (click)="onLoadNominatePage()" id="nominate-button">我要提名</button>
+    <a class="mr-1 p-0 col-1 col-md-1 col-lg-1 d-flex justify-content-end" (click)="login()">
+      <i class="adminfont">&#xe604;</i>
+    </a>
+    <button class="btn mr-0 pb-0 pt-0 col-4 col-md-1 col-lg-1" (click)="onLoadNominatePage()" id="nominate-button"><i class="mr-1  iconfont">&#x34bd;</i>我要提名
+    </button>
 
-      <button class="btn mr-1 p-1" data-toggle="modal" data-target="#info">
-        红毯晚会相关信息
-      </button>
+    <!--<button class="btn mr-0 p-0 col-3 col-md-1 col-lg-1" data-toggle="modal" data-target="#info">-->
+      <!--毕业晚会信息-->
+    <!--</button>-->
 
-    </div>
+
 
   </nav>
 
-  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="3000">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img class="d-block w-100" src="../../assets/img/banner-2.png" alt="First slide">
+        <img class="d-block w-100" src="../../assets/img/banner-1.png" alt="First slide">
       </div>
       <div class="carousel-item">
         <img class="d-block w-100" src="../../assets/img/banner-2.png" alt="Second slide">
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="../../assets/img/banner-3.png" alt="Third slide">
+        <img class="d-block w-100" src="../../assets/img/banner-3.jpg" alt="Third slide">
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -79,9 +79,12 @@
       <div class="modal-header">
         <h5 class="modal-title" id="infoLabel">红毯晚会信息</h5>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
 
-        <p>红毯晚会信息 </p>
+        <h4>复旦大学2018届毕业晚会 </h4>
+        <h6>2018.6.24 </h6>
+        <h6> SUN 19:00 </h6>
+        <h6>我们在 正大体育馆 等你</h6>
 
       </div>
       <div class="modal-footer">

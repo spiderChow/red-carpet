@@ -68,8 +68,11 @@
         </div>
         <div class="w-100"></div>
 
-        <div class="col-6 ">
-          <button class="btn col-12 mt-3" id="vote-btn"> 投票</button>
+        <div class="col-6 col-sm-4 col-md-4">
+          <button class="btn col-12 mt-3" id="vote-btn">  投票</button>
+        </div>
+        <div class="col-6 col-sm-4 col-md-4">
+          <a class="btn col-12 mt-3" data-toggle="modal" data-target="#rule-modal" id="rule-button"> <i class="iconfont">&#xe7c1;</i> 规则说明 </a>
         </div>
 
       </div>
@@ -100,6 +103,29 @@
   </div>
 </div>
 
+<!--for rule-->
+<div class="modal fade" id="rule-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <ul class="col-10 col-sm-8 col-md-8">
+          <li> 提名投票开放时间：5月8日20:18-5月21日23:59</li>
+          <li> 投票期间，每IP每天可参与投票一次，选择不多于10位候选人</li>
+          <li> 若使用校内公共网络投票，每票可为候选人增加8点能量；若使用其他网络投票，每票可为候选人增加2点能量。</li>
+          <li> 若意向投票人员未在候选人列表内（请通过搜索确认），可另行提名，新提名将在24小时内完成审核</li>
+          <li> 如在投票中遇到其他技术问题，请使用复旦邮箱致信yishutuan@fudan.edu.cn</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="nomineeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -120,7 +146,7 @@
         <p>专业：{{ modalNominee.school.name}} </p>
         <p>类型：{{ modalNominee.type.name}} </p>
         <p>Ta的能量：{{ modalNominee.votesNumber}} </p>
-        <p>remark：{{ modalNominee.remark}} </p>
+        <p>难以忘怀的日子：{{ modalNominee.remark}} </p>
 
       </div>
       <div class="modal-footer">
